@@ -71,7 +71,7 @@ main {
     z-index: 1;
     text-align: center;
     width: 100%;
-    pointer-events: none; /* Ensure text doesn't interfere with click events */
+    pointer-events: none;
 }
 
 .overlay {
