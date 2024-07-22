@@ -71,7 +71,7 @@ main {
     z-index: 1;
     text-align: center;
     width: 100%;
-    pointer-events: none;
+    pointer-events: none; 
 }
 
 .overlay {
@@ -104,3 +104,4 @@ main {
     font-size: 30px;
     color: white;
     text-decoration: none;
+}
