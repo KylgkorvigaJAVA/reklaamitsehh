@@ -1,0 +1,77 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+header {
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    max-width: 150px;
+    display: block;
+    text-align: center;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    float: right;
+}
+
+main {
+    padding: 20px 0;
+}
+
+.category {
+    position: relative;
+    overflow: hidden; /* Ensure that any overflow is hidden */
+    display: block;
+    width: 100%; /* Ensure the container takes full width of the column */
+    height: 140px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Style the category image */
+.category-image {
+    width: 100%;
+    max-width: 300px; /* Ensure images don't get too large */
+    height: auto;
+    margin: 0 auto; /* Center the image within the container */
+    filter: blur(3px); /* Apply blur to the image */
+    transition: filter 0.3s ease; /* Optional: smooth transition for the blur effect */
+}
+
+/* State when hovered or focused */
+.category-image:hover {
+    filter: blur(0); /* Change the blur effect */
+}
+
+.category-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the text */
+    color: white; /* Make the text color white for contrast */
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: add shadow for better readability */
+    z-index: 1; /* Ensure the text is above the image */
+    text-align: center; /* Center align the text */
+    width: 100%; /* Ensure the text takes full width of the container */
+    padding: 10px; /* Optional: add padding */
+}
+
+@media (min-width: 992px) {
+    .menu-icon {
+        display: none;
+    }
+}
