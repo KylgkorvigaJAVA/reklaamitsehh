@@ -15,9 +15,11 @@ header {
 }
 
 .logo {
-    max-width: 150px;
+    width: 100%;
+    height: auto;
     display: block;
     text-align: center;
+    margin: 10px 0;
 }
 
 .menu-icon {
@@ -104,4 +106,31 @@ main {
     font-size: 30px;
     color: white;
     text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .logo {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    .logo {
+        width: 75%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1201px) {
+    .logo {
+        width: 75%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
 }
