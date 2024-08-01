@@ -77,7 +77,6 @@ main {
 }
 
 .overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -85,26 +84,24 @@ main {
     height: 100%;
     background-size: cover;
     background-position: center;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    opacity: 0;
-    visibility: hidden;
 }
 
 .overlay.active {
-    display: flex;
     opacity: 1;
     visibility: visible;
 }
 
 .overlay .overlay-content {
-    color: black;
+    color: rgb(0, 0, 0);
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 8px;
+    z-index: 1001;
 }
 
 .overlay .close {
@@ -112,11 +109,8 @@ main {
     top: 20px;
     right: 20px;
     font-size: 30px;
-    color: white;
+    color: black;
     text-decoration: none;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 5px;
-    border-radius: 50%;
     cursor: pointer;
 }
 
