@@ -22,12 +22,6 @@ header {
     margin: 10px 0;
 }
 
-.menu-icon {
-    font-size: 24px;
-    cursor: pointer;
-    float: right;
-}
-
 main {
     padding: 20px 0;
 }
@@ -66,10 +60,10 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgb(255, 255, 255);
+    color: rgb(69, 69, 69);
     font-size: 18px;
     font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
     z-index: 1;
     text-align: center;
     width: 100%;
@@ -118,12 +112,78 @@ main {
     display: none;
 }
 
+/* Side navigation menu (hidden in desktop) */
+.mobilesidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #d9d9d9;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    z-index: 1000;
+}
+
+/* Content of the sidenav */
+.mobilesidenav a, .mobilesidenav p {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+}
+
+/* Close button inside the sidenav */
+.mobilesidenav .mobilenavclosebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Show the menu icon and sidenav only on mobile screens */
 @media (max-width: 600px) {
     .logo {
         width: 100%;
         height: auto;
         display: block;
         margin: 0 auto;
+    }
+
+    .mobile-menu-icon {
+        display: block; /* Show the menu icon */
+        font-size: 24px;
+        cursor: pointer;
+        float: right;
+    }
+
+    .mobilesidenav {
+        width: 0;
+    }
+
+    .desktop-menu-icon {
+        display: none;
+    }
+}
+
+@media (min-width: 601px) {
+    .desktop-menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        float: right;
+    }
+
+    .mobile-menu-icon {
+        display: none;
+    }
+
+    .mobilesidenav {
+        display: none;
     }
 }
 
