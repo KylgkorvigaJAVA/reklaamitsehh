@@ -14,14 +14,6 @@ header {
     border-bottom: 1px solid #ccc;
 }
 
-.logo {
-    width: 100%;
-    height: auto;
-    display: block;
-    text-align: center;
-    margin: 10px 0;
-}
-
 main {
     padding: 20px 0;
 }
@@ -129,9 +121,7 @@ main {
 
 /* Content of the sidenav */
 .mobilesidenav a, .mobilesidenav p {
-    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 18px;
     color: #000000;
     display: block;
     transition: 0.3s;
@@ -141,23 +131,48 @@ main {
 .mobilesidenav .mobilenavclosebtn {
     position: absolute;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    right: 16px;
+    font-size: 10vw;
+}
+
+.mobile-nav-contacts {
+    font-size: 18px;
+    padding-bottom: 32px;
+}
+
+.mobile-nav-links {
+    font-size: 24px;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.mobile-nav-links a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.mobile-nav-links a:not(:last-child) {
+    border-bottom: 1px solid #000000;
+}
+
+.mobile-language-links {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 64px 0px 0px 0px;
 }
 
 /* Show the menu icon and sidenav only on mobile screens */
-@media (max-width: 600px) {
+@media (max-width: 992px) {
     .logo {
-        width: 100%;
+        width: 90%;
         height: auto;
         display: block;
-        margin: 0 auto;
+        margin: 3.5% auto;
     }
 
     .mobile-menu-icon {
-        display: block; /* Show the menu icon */
-        font-size: 24px;
+        display: block;
+        font-size: 7vw;
         cursor: pointer;
         float: right;
     }
@@ -171,9 +186,9 @@ main {
     }
 }
 
-@media (min-width: 601px) {
+@media (min-width: 993px) {
     .desktop-menu-icon {
-        font-size: 24px;
+        font-size: 69px;
         cursor: pointer;
         float: right;
     }
@@ -189,10 +204,10 @@ main {
 
 @media (min-width: 601px) and (max-width: 1200px) {
     .logo {
-        width: 75%;
+        width: 90%;
         height: auto;
         display: block;
-        margin: 0 auto;
+        margin: 3% auto;
     }
 }
 
@@ -201,6 +216,6 @@ main {
         width: 50%;
         height: auto;
         display: block;
-        margin: 0 auto;
+        margin: 3% auto;
     }
 }

@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile menu open event
     const menuIcon = document.querySelector('.mobile-menu-icon');
     const sidenav = document.getElementById('mobileSidenav');
     const closeBtn = sidenav.querySelector('.mobilenavclosebtn');
@@ -31,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Define the width of the sidenav in percentage
     const sidenavWidth = '80%';
 
+    // Mobile menu open event
     menuIcon.addEventListener('click', () => {
         sidenav.style.width = sidenavWidth;
     });
