@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close the sidenav if the user presses the back button with the sidenav open
     window.addEventListener('popstate', (event) => {
         if (menuOpen) {
+            event.preventDefault();
             sidenav.style.width = '0';
             menuOpen = false;
         }
