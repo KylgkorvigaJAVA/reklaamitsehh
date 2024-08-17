@@ -30,25 +30,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Define the width of the sidenav in percentage
     const sidenavWidth = '80%';
     // Variable to track menu state
-    let menuOpen = false;  
+    let menuOpen = false;
+    
+    // Function to open the menu
+    function openMenu() {
+        sidenav.style.width = sidenavWidth;
+        menuOpen = true;
+        // Push a new state with menuOpen true
+        history.pushState({ menuOpen: true }, '');
+    }
+
+    // Function to close the menu
+    function closeMenu() {
+        sidenav.style.width = '0';
+        menuOpen = false;
+        history.back();
+        history.pushState({ menuOpen: false }, '');
+    }
 
     // Mobile menu open event
     menuIcon.addEventListener('click', () => {
-        sidenav.style.width = sidenavWidth;
-        menuOpen = true;
+        openMenu();
     });
 
     // Mobile menu close event
     closeBtn.addEventListener('click', () => {
-        sidenav.style.width = '0';
-        menuOpen = false;
+        closeMenu();
     });
 
     // Close the sidenav if the user clicks outside of it
     document.addEventListener('click', (event) => {
         if (sidenav.style.width === sidenavWidth && !sidenav.contains(event.target) && event.target !== menuIcon) {
-            sidenav.style.width = '0';
-            menuOpen = false;
+            closeMenu();
         }
     });
 
@@ -62,18 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
     sidenav.addEventListener('touchend', (event) => {
         let touchEndX = event.changedTouches[0].clientX;
         if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
-            sidenav.style.width = '0';
-            menuOpen = false;
+            closeMenu();
         }
     });
     
     // Close the sidenav if the user presses the back button with the sidenav open
     window.addEventListener('popstate', (event) => {
         if (menuOpen) {
-            event.preventDefault();
             sidenav.style.width = '0';
             menuOpen = false;
+            event.preventDefault();
         }
     });
-    
 });
