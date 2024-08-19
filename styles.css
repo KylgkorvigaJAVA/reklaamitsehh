@@ -14,6 +14,31 @@ header {
     border-bottom: 1px solid #ccc;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.info-container {
+    flex-shrink: 0;
+    width: 200px;
+}
+.left-container {
+    flex-shrink: 0;
+    width: 200px;
+}
+
+.desktop-menu-text p {
+    margin-bottom: 2px;
+    text-align: right;
+}
+
 main {
     padding: 20px 0;
 }
@@ -161,7 +186,7 @@ main {
     padding: 64px 0px 0px 0px;
 }
 
-/* Show the menu icon and sidenav only on mobile screens */
+/* mobile screens */
 @media (max-width: 992px) {
     .logo {
         width: 90%;
@@ -181,16 +206,24 @@ main {
         width: 0;
     }
 
-    .desktop-menu-icon {
+    .desktop-menu-text {
         display: none;
+    }
+   
+    .info-container {
+        flex-shrink: 0;
+        width: 50px;
+    }
+    .left-container {
+        flex-shrink: 0;
+        width: 50px;
     }
 }
 
+/* desktop */
 @media (min-width: 993px) {
-    .desktop-menu-icon {
-        font-size: 69px;
-        cursor: pointer;
-        float: right;
+    .desktop-menu-text {
+        float:right;
     }
 
     .mobile-menu-icon {
@@ -211,11 +244,14 @@ main {
     }
 }
 
+/* ultra wide? */
 @media (min-width: 1201px) {
     .logo {
-        width: 50%;
+        width: 100%;
         height: auto;
         display: block;
         margin: 3% auto;
+        max-width: 950px;
     }
+
 }
