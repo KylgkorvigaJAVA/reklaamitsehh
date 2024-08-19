@@ -29,21 +29,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Define the width of the sidenav in percentage
     const sidenavWidth = '80%';
+    // Variable to track menu state
+    let menuOpen = false;
+    
+    // Function to open the menu
+    function openMenu() {
+        sidenav.style.width = sidenavWidth;
+        menuOpen = true;
+        // Push a new state with menuOpen true
+        history.pushState({ menuOpen: true }, '');
+    }
+
+    // Function to close the menu
+    function closeMenu() {
+        sidenav.style.width = '0';
+        menuOpen = false;
+        history.back();
+        history.pushState({ menuOpen: false }, '');
+    }
 
     // Mobile menu open event
     menuIcon.addEventListener('click', () => {
-        sidenav.style.width = sidenavWidth;
+        openMenu();
     });
 
     // Mobile menu close event
     closeBtn.addEventListener('click', () => {
-        sidenav.style.width = '0';
+        closeMenu();
     });
 
-    // Optional: Close the sidenav if the user clicks outside of it
+    // Close the sidenav if the user clicks outside of it
     document.addEventListener('click', (event) => {
         if (sidenav.style.width === sidenavWidth && !sidenav.contains(event.target) && event.target !== menuIcon) {
+            closeMenu();
+        }
+    });
+
+    // Close the sidenav if the user swipes to the right
+    let touchStartX = 0;
+
+    sidenav.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX;
+    });
+
+    sidenav.addEventListener('touchend', (event) => {
+        let touchEndX = event.changedTouches[0].clientX;
+        if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
+            closeMenu();
+        }
+    });
+    
+    // Close the sidenav if the user presses the back button with the sidenav open
+    window.addEventListener('popstate', (event) => {
+        if (menuOpen) {
             sidenav.style.width = '0';
+            menuOpen = false;
+            event.preventDefault();
         }
     });
 });
