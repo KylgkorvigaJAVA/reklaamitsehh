@@ -188,7 +188,7 @@ main {
 /* mobile screens */
 @media (max-width: 992px) {
     .logo {
-        width: 90%;
+        max-width: 90%;
         height: auto;
         display: block;
         margin: 3.5% auto;
