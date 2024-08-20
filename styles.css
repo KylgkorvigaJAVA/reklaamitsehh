@@ -9,9 +9,12 @@ body {
 }
 
 header {
+    position: sticky;
+    top:0;
     padding: 10px 20px;
     background-color: white;
     border-bottom: 1px solid #ccc;
+    z-index: 99;
 }
 
 .header-container {
