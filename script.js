@@ -87,4 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
         }
     });
+
+    const header = document.querySelector('header');
+
+    // Function to update CSS variable for header height
+    function updateHeaderHeight() {
+        const headerHeight = header.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+    }
+
+    // Run on page load
+    updateHeaderHeight();
+
+    // Update on window resize
+    window.addEventListener('resize', updateHeaderHeight);
 });
