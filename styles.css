@@ -190,6 +190,10 @@ main {
     padding: 64px 0px 0px 0px;
 }
 
+.kontaktandmed {
+    text-align: center;
+}
+
 /* mobile screens */
 @media (max-width: 992px) {
     .logo {
