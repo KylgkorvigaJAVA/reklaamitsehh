@@ -42,6 +42,23 @@ header {
     text-align: right;
 }
 
+.desktop-nav-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.desktop-nav-links a{
+    text-decoration: none;
+    color: #000000;
+}
+.desktop-nav-links a:hover {
+    color: #DA7008;
+    text-decoration: underline;
+}
+
 main {
     padding: 20px 0;
 }
@@ -230,6 +247,10 @@ main {
 
 /* desktop */
 @media (min-width: 992px) {
+    header {
+        padding: 15px 20px 0px 20px;
+    }    
+
     .desktop-menu-text {
         float:right;
     }
@@ -261,5 +282,11 @@ main {
         margin: 3% auto;
         max-width: 950px;
     }
+
+    /* .desktop-nav-links {
+        width: 100%;
+        height: auto;
+        max-width: 950px;
+    } */
 
 }
