@@ -210,6 +210,10 @@ main {
         width: 0;
     }
 
+    .desktop-nav-links {
+        display: none;
+    }
+
     .desktop-menu-text {
         display: none;
     }
