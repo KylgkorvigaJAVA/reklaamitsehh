@@ -211,6 +211,12 @@ main {
     text-align: center;
 }
 
+.maps-widget {
+    border: 0;
+    width: 90%;
+    height: 150%;
+}
+
 /* Gallery */
 #gallery {
     padding: 20px;
