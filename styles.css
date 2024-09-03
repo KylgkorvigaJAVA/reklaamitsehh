@@ -51,12 +51,28 @@ header {
 }
 
 .desktop-nav-links a{
+    flex: 1;
     text-decoration: none;
     color: #000000;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
-.desktop-nav-links a:hover {
-    color: #DA7008;
+
+.desktop-nav-links a.active {
     text-decoration: underline;
+    font-weight: bold;
+    background-color: #DD7007;
+    border-color: #DD7007;
+
+}
+
+.desktop-nav-links a:hover {
+    color: #000000;
+    text-decoration: underline;
+    background-color: #DD7007;
+    border-color: #DD7007;
 }
 
 main {
