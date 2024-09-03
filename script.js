@@ -101,20 +101,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update on window resize
     window.addEventListener('resize', updateHeaderHeight);
-
-    // New functionality: Set the active class on the current nav link
-    const path = window.location.pathname;
-    const page = path.split("/").pop(); // Get the page name (e.g., index.html)
-
-    const navLinks = document.querySelectorAll('.desktop-nav-links a');
-
-    navLinks.forEach(link => {
-        // Remove active class from all links
-        link.classList.remove('active');
-
-        // If the href matches the current page, add the active class
-        if (link.getAttribute('href') === page) {
-            link.classList.add('active');
-        }
-    });
 });

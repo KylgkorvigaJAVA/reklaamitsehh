@@ -61,16 +61,15 @@ header {
 }
 
 .desktop-nav-links a.active {
-    text-decoration: underline;
-    font-weight: bold;
+    font-size: 110%;
     background-color: #DD7007;
     border-color: #DD7007;
 
 }
 
 .desktop-nav-links a:hover {
+    font-size: 110%;
     color: #000000;
-    text-decoration: underline;
     background-color: #DD7007;
     border-color: #DD7007;
 }
@@ -112,7 +111,7 @@ main {
 
 .category:hover .category-image {
     filter: blur(0);
-    transform: scale(1.2);
+    transform: scale(1.4);
 }
 
 .category-name {
