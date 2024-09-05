@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let touchEndX = event.changedTouches[0].clientX;
             if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
                 nextSilde();
-            } else if (touchEndX < touchStartX - 50) {  // Detect right swipe (50px threshold)
+            } else if (touchEndX < touchStartX - 50) {  // Detect left swipe (50px threshold)
                 prevSilde();
             }
         });
