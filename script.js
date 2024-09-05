@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    /* MOBILE SIDENAV MENU LOGIC START
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
     const menuIcon = document.querySelector('.mobile-menu-icon');
     const sidenav = document.getElementById('mobileSidenav');
     const closeBtn = sidenav.querySelector('.mobilenavclosebtn');
@@ -88,6 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    /* MOBILE SIDENAV MENU LOGIC END
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
     const header = document.querySelector('header');
 
     // Function to update CSS variable for header height
@@ -101,4 +109,132 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update on window resize
     window.addEventListener('resize', updateHeaderHeight);
+
+
+    /* LIGHTBOX LOGIC START
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+    const imageGrid = document.querySelector(".image-grid");
+    const imgs = imageGrid.querySelectorAll("img");
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const bsModal = new bootstrap.Modal(lightboxModal);
+    const modalBody = lightboxModal.querySelector(".modal-body .container-fluid");
+    
+    let currentSlideIndex = 0;
+
+    // Handle image clicks using event delegation
+    imageGrid.addEventListener('click', (e) => {
+        const img = e.target.closest('img');
+        if (img && imageGrid.contains(img)) {
+            e.preventDefault();
+            currentSlideIndex = Array.from(imgs).indexOf(img);
+            createCarousel();
+            bsModal.show();
+        }
+    });
+
+    function createCarousel() {
+        // Generate carousel slides
+        const slides = Array.from(imgs).map((img, index) => `
+            <div class="carousel-item${index === currentSlideIndex ? ' active' : ''}">
+                <img src="${img.src}" alt="${img.alt}">
+            </div>
+        `).join('');
+
+        // Insert carousel HTML into the modal
+        modalBody.innerHTML = `
+            <div class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                    ${slides}
+                </div>
+                <button class="carousel-control-prev" type="button">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        `;
+
+        const items = modalBody.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+        const prevBtn = modalBody.querySelector('.carousel-control-prev');
+        const nextBtn = modalBody.querySelector('.carousel-control-next');
+
+        function prevSilde() {
+            items[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex - 1 + totalItems) % totalItems;
+            items[currentSlideIndex].classList.add('active');
+        }
+
+        function nextSilde() {
+            items[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + 1) % totalItems;
+            items[currentSlideIndex].classList.add('active');
+        }
+
+        // Navigate to the previous slide
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            prevSilde();
+        });
+
+        // Navigate to the next slide
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            nextSilde();
+        });
+
+        // Navigate to next image if user swipes
+        touchStartX = 0;
+
+        lightboxModal.addEventListener('touchstart', (event) => {
+            touchStartX = event.touches[0].clientX;
+        });
+
+        lightboxModal.addEventListener('touchend', (event) => {
+            let touchEndX = event.changedTouches[0].clientX;
+            if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
+                nextSilde();
+            } else if (touchEndX < touchStartX + 50) {  // Detect right swipe (50px threshold)
+                prevSilde();
+            }
+        });
+
+        // Listen for keydown events to navigate with arrow keys
+        lightboxModal.addEventListener('keydown', (e) => {
+            e.preventDefault();
+
+            if (e.key === 'ArrowLeft') {
+                prevSilde();
+            } else if (e.key === 'ArrowRight') {
+                nextSilde();
+            }
+        });
+
+    }
+
+    // Close the lightbox if clicked outside the image
+    lightboxModal.addEventListener('click', (e) => {
+        const isOutsideImage = !e.target.closest('.carousel-item img');
+        const isControlButton = e.target.closest('.carousel-control-prev, .carousel-control-next');
+
+        // Close only if clicked outside the image and not on control buttons
+        if (isOutsideImage && !isControlButton) {
+            bsModal.hide();
+        }
+    });
+
+
+    // Clean up the carousel when the modal is closed
+    lightboxModal.addEventListener('hidden.bs.modal', () => {
+        modalBody.innerHTML = '';
+    });
+
+    /* LIGHTBOX LOGIC END
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+    
 });
