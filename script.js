@@ -190,15 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Navigate to next image if user swipes
         touchStartX = 0;
 
-        lightboxModal.addEventListener('touchstart', (event) => {
+        document.addEventListener('touchstart', (event) => {
             touchStartX = event.touches[0].clientX;
         });
 
-        lightboxModal.addEventListener('touchend', (event) => {
+        document.addEventListener('touchend', (event) => {
             let touchEndX = event.changedTouches[0].clientX;
             if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
                 nextSilde();
-            } else if (touchEndX < touchStartX + 50) {  // Detect right swipe (50px threshold)
+            } else if (touchEndX < touchStartX - 50) {  // Detect right swipe (50px threshold)
                 prevSilde();
             }
         });

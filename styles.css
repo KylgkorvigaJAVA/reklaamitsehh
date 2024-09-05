@@ -287,11 +287,11 @@ main {
   }
 
   .lightbox-modal .carousel-control-prev {
-      left: 10px;
+      left: 20px;
   }
 
   .lightbox-modal .carousel-control-next {
-      right: 10px;
+      right: 20px;
   }
 
 /* mobile screens */
