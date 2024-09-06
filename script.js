@@ -188,53 +188,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Navigate to next image if user swipes
+        // Use named events in order to be able to remove them later
         touchStartX = 0;
 
-        document.addEventListener('touchstart', (event) => {
+        function myTouchStart(event) {
             touchStartX = event.touches[0].clientX;
-        });
+        }
 
-        document.addEventListener('touchend', (event) => {
+        lightboxModal.addEventListener('touchstart', myTouchStart);
+
+        function myTouchEnd(event) {
             let touchEndX = event.changedTouches[0].clientX;
             if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
-                nextSilde();
-            } else if (touchEndX < touchStartX - 50) {  // Detect left swipe (50px threshold)
                 prevSilde();
+            } else if (touchEndX < touchStartX - 50) {  // Detect left swipe (50px threshold)
+                nextSilde();
+            }
+        }
+
+        lightboxModal.addEventListener('touchend', myTouchEnd);
+
+        // Navigate to prev or next image with arrow keys
+        function myKeyDown(event) {
+            event.preventDefault();
+
+            if (event.key === 'ArrowLeft') {
+                prevSilde();
+            } else if (event.key === 'ArrowRight') {
+                nextSilde();
+            }
+        }
+
+        // Listen for keydown events to navigate with arrow keys
+        lightboxModal.addEventListener('keydown', myKeyDown);
+
+        // Close the lightbox if clicked outside the image
+        lightboxModal.addEventListener('click', (e) => {
+            const isOutsideImage = !e.target.closest('.carousel-item img');
+            const isControlButton = e.target.closest('.carousel-control-prev, .carousel-control-next');
+
+            // Close only if clicked outside the image and not on control buttons
+            if (isOutsideImage && !isControlButton) {
+                bsModal.hide();
             }
         });
 
-        // Listen for keydown events to navigate with arrow keys
-        lightboxModal.addEventListener('keydown', (e) => {
-            e.preventDefault();
 
-            if (e.key === 'ArrowLeft') {
-                prevSilde();
-            } else if (e.key === 'ArrowRight') {
-                nextSilde();
-            }
+        // Clean up the carousel when the modal is closed
+        lightboxModal.addEventListener('hidden.bs.modal', () => {
+            // Remove these event listeners when the modal is hidden so they don't get duplicated when the modal is opened again
+            lightboxModal.removeEventListener('touchstart', myTouchStart);
+            lightboxModal.removeEventListener('touchend', myTouchEnd);
+            lightboxModal.removeEventListener('keydown', myKeyDown);
+
+            modalBody.innerHTML = '';
         });
 
     }
 
-    // Close the lightbox if clicked outside the image
-    lightboxModal.addEventListener('click', (e) => {
-        const isOutsideImage = !e.target.closest('.carousel-item img');
-        const isControlButton = e.target.closest('.carousel-control-prev, .carousel-control-next');
-
-        // Close only if clicked outside the image and not on control buttons
-        if (isOutsideImage && !isControlButton) {
-            bsModal.hide();
-        }
-    });
-
-
-    // Clean up the carousel when the modal is closed
-    lightboxModal.addEventListener('hidden.bs.modal', () => {
-        modalBody.innerHTML = '';
-    });
-
     /* LIGHTBOX LOGIC END
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-    
 });
