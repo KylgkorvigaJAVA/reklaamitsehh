@@ -115,135 +115,136 @@ document.addEventListener('DOMContentLoaded', () => {
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
     const imageGrid = document.querySelector(".image-grid");
-    const imgs = imageGrid.querySelectorAll("img");
-    const lightboxModal = document.getElementById("lightbox-modal");
-    const bsModal = new bootstrap.Modal(lightboxModal);
-    const modalBody = lightboxModal.querySelector(".modal-body .container-fluid");
-    
-    let currentSlideIndex = 0;
+    if (imageGrid) {
+        const imgs = imageGrid.querySelectorAll("img");
+        const lightboxModal = document.getElementById("lightbox-modal");
+        const bsModal = new bootstrap.Modal(lightboxModal);
+        const modalBody = lightboxModal.querySelector(".modal-body .container-fluid");
+        let currentSlideIndex = 0;
 
-    // Handle image clicks using event delegation
-    imageGrid.addEventListener('click', (e) => {
-        const img = e.target.closest('img');
-        if (img && imageGrid.contains(img)) {
-            e.preventDefault();
-            currentSlideIndex = Array.from(imgs).indexOf(img);
-            createCarousel();
-            bsModal.show();
-        }
-    });
+        // Handle image clicks using event delegation
+        imageGrid.addEventListener('click', (e) => {
+            const img = e.target.closest('img');
+            if (img && imageGrid.contains(img)) {
+                e.preventDefault();
+                currentSlideIndex = Array.from(imgs).indexOf(img);
+                createCarousel();
+                bsModal.show();
+            }
+        });        
 
-    function createCarousel() {
-        // Generate carousel slides
-        const slides = Array.from(imgs).map((img, index) => `
-            <div class="carousel-item${index === currentSlideIndex ? ' active' : ''}">
-                <img src="${img.src}" alt="${img.alt}">
-            </div>
-        `).join('');
-
-        // Insert carousel HTML into the modal
-        modalBody.innerHTML = `
-            <div class="carousel slide" data-bs-ride="false">
-                <div class="carousel-inner">
-                    ${slides}
+        function createCarousel() {
+            // Generate carousel slides
+            const slides = Array.from(imgs).map((img, index) => `
+                <div class="carousel-item${index === currentSlideIndex ? ' active' : ''}">
+                    <img src="${img.src}" alt="${img.alt}">
                 </div>
-                <button class="carousel-control-prev" type="button">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        `;
+            `).join('');
 
-        const items = modalBody.querySelectorAll('.carousel-item');
-        const totalItems = items.length;
-        const prevBtn = modalBody.querySelector('.carousel-control-prev');
-        const nextBtn = modalBody.querySelector('.carousel-control-next');
+            // Insert carousel HTML into the modal
+            modalBody.innerHTML = `
+                <div class="carousel slide" data-bs-ride="false">
+                    <div class="carousel-inner">
+                        ${slides}
+                    </div>
+                    <button class="carousel-control-prev" type="button">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            `;
 
-        function prevSilde() {
-            items[currentSlideIndex].classList.remove('active');
-            currentSlideIndex = (currentSlideIndex - 1 + totalItems) % totalItems;
-            items[currentSlideIndex].classList.add('active');
-        }
+            const items = modalBody.querySelectorAll('.carousel-item');
+            const totalItems = items.length;
+            const prevBtn = modalBody.querySelector('.carousel-control-prev');
+            const nextBtn = modalBody.querySelector('.carousel-control-next');
 
-        function nextSilde() {
-            items[currentSlideIndex].classList.remove('active');
-            currentSlideIndex = (currentSlideIndex + 1) % totalItems;
-            items[currentSlideIndex].classList.add('active');
-        }
+            function prevSilde() {
+                items[currentSlideIndex].classList.remove('active');
+                currentSlideIndex = (currentSlideIndex - 1 + totalItems) % totalItems;
+                items[currentSlideIndex].classList.add('active');
+            }
 
-        // Navigate to the previous slide
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            prevSilde();
-        });
+            function nextSilde() {
+                items[currentSlideIndex].classList.remove('active');
+                currentSlideIndex = (currentSlideIndex + 1) % totalItems;
+                items[currentSlideIndex].classList.add('active');
+            }
 
-        // Navigate to the next slide
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            nextSilde();
-        });
-
-        // Navigate to next image if user swipes
-        // Use named events in order to be able to remove them later
-        touchStartX = 0;
-
-        function myTouchStart(event) {
-            touchStartX = event.touches[0].clientX;
-        }
-
-        lightboxModal.addEventListener('touchstart', myTouchStart);
-
-        function myTouchEnd(event) {
-            let touchEndX = event.changedTouches[0].clientX;
-            if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
+            // Navigate to the previous slide
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 prevSilde();
-            } else if (touchEndX < touchStartX - 50) {  // Detect left swipe (50px threshold)
+            });
+
+            // Navigate to the next slide
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 nextSilde();
+            });
+
+            // Navigate to next image if user swipes
+            // Use named events in order to be able to remove them later
+            touchStartX = 0;
+
+            function myTouchStart(event) {
+                touchStartX = event.touches[0].clientX;
             }
+
+            lightboxModal.addEventListener('touchstart', myTouchStart);
+
+            function myTouchEnd(event) {
+                let touchEndX = event.changedTouches[0].clientX;
+                if (touchEndX > touchStartX + 50) {  // Detect right swipe (50px threshold)
+                    prevSilde();
+                } else if (touchEndX < touchStartX - 50) {  // Detect left swipe (50px threshold)
+                    nextSilde();
+                }
+            }
+
+            lightboxModal.addEventListener('touchend', myTouchEnd);
+
+            // Navigate to prev or next image with arrow keys
+            function myKeyDown(event) {
+                event.preventDefault();
+
+                if (event.key === 'ArrowLeft') {
+                    prevSilde();
+                } else if (event.key === 'ArrowRight') {
+                    nextSilde();
+                }
+            }
+
+            // Listen for keydown events to navigate with arrow keys
+            lightboxModal.addEventListener('keydown', myKeyDown);
+
+            // Close the lightbox if clicked outside the image
+            lightboxModal.addEventListener('click', (e) => {
+                const isOutsideImage = !e.target.closest('.carousel-item img');
+                const isControlButton = e.target.closest('.carousel-control-prev, .carousel-control-next');
+
+                // Close only if clicked outside the image and not on control buttons
+                if (isOutsideImage && !isControlButton) {
+                    bsModal.hide();
+                }
+            });
+
+
+            // Clean up the carousel when the modal is closed
+            lightboxModal.addEventListener('hidden.bs.modal', () => {
+                // Remove these event listeners when the modal is hidden so they don't get duplicated when the modal is opened again
+                lightboxModal.removeEventListener('touchstart', myTouchStart);
+                lightboxModal.removeEventListener('touchend', myTouchEnd);
+                lightboxModal.removeEventListener('keydown', myKeyDown);
+
+                modalBody.innerHTML = '';
+            });
+
         }
-
-        lightboxModal.addEventListener('touchend', myTouchEnd);
-
-        // Navigate to prev or next image with arrow keys
-        function myKeyDown(event) {
-            event.preventDefault();
-
-            if (event.key === 'ArrowLeft') {
-                prevSilde();
-            } else if (event.key === 'ArrowRight') {
-                nextSilde();
-            }
-        }
-
-        // Listen for keydown events to navigate with arrow keys
-        lightboxModal.addEventListener('keydown', myKeyDown);
-
-        // Close the lightbox if clicked outside the image
-        lightboxModal.addEventListener('click', (e) => {
-            const isOutsideImage = !e.target.closest('.carousel-item img');
-            const isControlButton = e.target.closest('.carousel-control-prev, .carousel-control-next');
-
-            // Close only if clicked outside the image and not on control buttons
-            if (isOutsideImage && !isControlButton) {
-                bsModal.hide();
-            }
-        });
-
-
-        // Clean up the carousel when the modal is closed
-        lightboxModal.addEventListener('hidden.bs.modal', () => {
-            // Remove these event listeners when the modal is hidden so they don't get duplicated when the modal is opened again
-            lightboxModal.removeEventListener('touchstart', myTouchStart);
-            lightboxModal.removeEventListener('touchend', myTouchEnd);
-            lightboxModal.removeEventListener('keydown', myKeyDown);
-
-            modalBody.innerHTML = '';
-        });
-
     }
 
     /* LIGHTBOX LOGIC END
