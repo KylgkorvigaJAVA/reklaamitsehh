@@ -161,6 +161,7 @@ main {
     transition: opacity 0.4s ease, visibility 0.4s ease;
     opacity: 0;
     visibility: hidden;
+    overflow: hidden;
     z-index: 1000;
 }
 
@@ -172,6 +173,7 @@ main {
 .overlay-content {
     position: fixed; /* Fix the position of the content */
     top: var(--header-height);
+    bottom: 50px;
     right: 0; /* Align content to the right */
     width: 40%; /* Cover the right half of the screen */
     height: calc(100% - var(--header-height));
@@ -183,6 +185,9 @@ main {
     text-align: left; /* Left-align text within the content box */
     padding: 20px;
     z-index: 1000;
+    box-sizing: border-box;
+    overflow-y: scroll; /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .overlay-content h1 {
@@ -194,7 +199,6 @@ main {
     max-width: 90%;
     margin: 0;
     padding: 10px;
-    /* background-color: #cbd0d6cc; */
 }
 
 .overlay-content .close {
@@ -372,6 +376,10 @@ main {
 
     .overlay-content .close {
         display: none;
+    }
+    
+    .overlay-content p {
+        margin-bottom: 100px;
     }
     
     .logo {
