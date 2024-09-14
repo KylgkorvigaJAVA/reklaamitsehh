@@ -95,6 +95,71 @@ document.addEventListener('DOMContentLoaded', () => {
     /* MOBILE SIDENAV MENU LOGIC END
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+    // CATEGORY SCROLL START #############################
+
+    const overlays = document.querySelectorAll('.overlay');
+    const categoryLinks = document.querySelectorAll('.category-link');
+    let currentOverlayIndex = 0;
+
+    // Function to open an overlay
+    function openOverlay(index) {
+        overlays.forEach((overlay, i) => {
+            if (i === index) {
+                const categoryImage = categoryLinks[i].querySelector('.category-image').src;
+                overlay.style.backgroundImage = `url(${categoryImage})`;
+                overlay.classList.add('active');
+                overlay.querySelector('.overlay-content').classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+                overlay.querySelector('.overlay-content').classList.remove('active');
+            }
+        });
+        currentOverlayIndex = index;
+    }
+
+    // Function to close all overlays
+    function closeAllOverlays() {
+        overlays.forEach(overlay => {
+            overlay.classList.remove('active');
+            overlay.querySelector('.overlay-content').classList.remove('active');
+        });
+    }
+
+    // Event listener for opening overlays
+    categoryLinks.forEach((link, index) => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            openOverlay(index);
+        });
+    });
+
+    // Event listener for closing overlays
+    overlays.forEach(overlay => {
+        overlay.querySelectorAll('.close').forEach(closeButton => {
+            closeButton.addEventListener('click', function() {
+                closeAllOverlays();
+            });
+        });
+    });
+
+    // Event listener for scrolling to next/previous overlay
+    document.addEventListener('wheel', function(event) {
+        if (overlays[currentOverlayIndex].classList.contains('active')) {
+            if (event.deltaY > 0) {
+                // Scroll down
+                if (currentOverlayIndex < overlays.length - 1) {
+                    openOverlay(currentOverlayIndex + 1);
+                }
+            } else {
+                // Scroll up
+                if (currentOverlayIndex > 0) {
+                    openOverlay(currentOverlayIndex - 1);
+                }
+            }
+        }
+    });
+    
+    // CATEGORY SCROLL END #############################
 
     const header = document.querySelector('header');
 
