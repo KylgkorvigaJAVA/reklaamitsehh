@@ -159,6 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    /* MOBILE SWIPE GESTURE DISABLED FOR NOW #############################
+
     // Variables to track touch events for mobile swipe
     let swipeStartY = 0;
     let swipeEndY = 0;
@@ -191,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    */
     
     // CATEGORY SCROLL/SWIPE END #############################
 
