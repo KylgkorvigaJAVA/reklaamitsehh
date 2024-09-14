@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* MOBILE SIDENAV MENU LOGIC END
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-    // CATEGORY SCROLL START #############################
+    // CATEGORY SCROLL/SWIPE START #############################
 
     const overlays = document.querySelectorAll('.overlay');
     const categoryLinks = document.querySelectorAll('.category-link');
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Event listener for scrolling to next/previous overlay
+    // Event listener for scrolling to next/previous overlay on desktop
     document.addEventListener('wheel', function(event) {
         if (overlays[currentOverlayIndex].classList.contains('active')) {
             if (event.deltaY > 0) {
@@ -158,8 +158,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Variables to track touch events for mobile swipe
+    let swipeStartY = 0;
+    let swipeEndY = 0;
+
+    // Add touch event listeners to each overlay
+    overlays.forEach(overlay => {
+        overlay.addEventListener('touchstart', function(event) {
+            swipeStartY = event.changedTouches[0].screenY;
+        });
+
+        overlay.addEventListener('touchend', function(event) {
+            swipeEndY = event.changedTouches[0].screenY;
+            handleSwipeGesture();
+        });
+    });
+
+    // Function to handle swipe gestures
+    function handleSwipeGesture() {
+        if (overlays[currentOverlayIndex].classList.contains('active')) {
+            if (swipeEndY < swipeStartY - 50) {
+                // Swipe up (next overlay)
+                if (currentOverlayIndex < overlays.length - 1) {
+                    openOverlay(currentOverlayIndex + 1);
+                }
+            } else if (swipeEndY > swipeStartY + 50) {
+                // Swipe down (previous overlay)
+                if (currentOverlayIndex > 0) {
+                    openOverlay(currentOverlayIndex - 1);
+                }
+            }
+        }
+    }
     
-    // CATEGORY SCROLL END #############################
+    // CATEGORY SCROLL/SWIPE END #############################
 
     const header = document.querySelector('header');
 
