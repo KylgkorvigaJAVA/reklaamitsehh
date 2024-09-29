@@ -400,10 +400,6 @@ main {
     .desktop-nav-links {
         display: none;
     }
-
-    .desktop-menu-text {
-        display: none;
-    }
    
     .info-container {
         flex-shrink: 0;
@@ -444,7 +440,7 @@ main {
 
 @media (min-width: 601px) and (max-width: 1200px) {
     .logo {
-        width: 100%;
+        width: 90%;
         height: auto;
         display: block;
         margin: 3% auto;
@@ -454,7 +450,7 @@ main {
 /* ultra wide? */
 @media (min-width: 1200px) {
     .logo {
-        width: 100%;
+        width: 90%;
         height: auto;
         display: block;
         margin: 3% auto;
