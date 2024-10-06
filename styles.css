@@ -78,6 +78,25 @@ main {
     padding: 20px 0;
 }
 
+.bottom-image-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the images horizontally */
+    gap: 30px; /* Optional: Adds space between images */
+    padding: 30px; /* Optional: Adds padding around the container */
+    z-index: 1001; /* Ensure it is above other content */
+}
+
+.bottom-image {
+    flex: 1 1 auto; /* Allow images to grow and shrink */
+    max-width: 300px; /* Set a maximum width for the images */
+    height: auto; /* Maintain aspect ratio */
+    /* object-fit: cover; */
+}
+
 .category {
     position: relative;
     overflow: hidden;
@@ -148,11 +167,14 @@ main {
 }
 
 .overlay {
+    float: left;
     position: fixed;
     top: var(--header-height);
     left: 0;
-    width: 60%;
-    height: calc(100% - var(--header-height));
+    width: 50%;
+    height: 50%;
+    flex: 1 1 auto;
+    /* height: calc(100% - var(--header-height)); */
     background-size: cover;
     background-position: center;
     transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -172,8 +194,9 @@ main {
     top: var(--header-height);
     bottom: 50px;
     right: 0; /* Align content to the right */
-    width: 40%; /* Cover the right half of the screen */
-    height: calc(100% - var(--header-height));
+    width: 50%; /* Cover the right half of the screen */
+    height: 50%;
+    /* height: calc(100% - var(--header-height)); */
     display: flex;
     flex-direction: column;
     justify-content: center;
