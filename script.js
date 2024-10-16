@@ -215,8 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* LIGHTBOX LOGIC START
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-    const imageGrid = document.querySelector(".image-grid");
-    if (imageGrid) {
+    document.querySelectorAll(".image-grid").forEach((imageGrid) => {
         const imgs = imageGrid.querySelectorAll("img");
         const lightboxModal = document.getElementById("lightbox-modal");
         const bsModal = new bootstrap.Modal(lightboxModal);
@@ -229,16 +228,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (img && imageGrid.contains(img)) {
                 e.preventDefault();
                 currentSlideIndex = Array.from(imgs).indexOf(img);
-                createCarousel();
+                createCarousel(imgs);
                 bsModal.show();
             }
         });        
 
-        function createCarousel() {
+        function createCarousel(images) {
             // Generate carousel slides
-            const slides = Array.from(imgs).map((img, index) => `
+            const slides = Array.from(images).map((img, index) => `
                 <div class="carousel-item${index === currentSlideIndex ? ' active' : ''}">
                     <img src="${img.src}" alt="${img.alt}">
+                    ${img.getAttribute("data-caption") ? createCaption(img.getAttribute("data-caption")) : ""}
                 </div>
             `).join('');
 
@@ -263,6 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalItems = items.length;
             const prevBtn = modalBody.querySelector('.carousel-control-prev');
             const nextBtn = modalBody.querySelector('.carousel-control-next');
+
+            function createCaption(caption) {
+                return `<div class="carousel-caption">
+                   <p class="m-0">${caption}</p>
+                  </div>`;
+            }
 
             function prevSilde() {
                 items[currentSlideIndex].classList.remove('active');
@@ -346,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
         }
-    }
+    });
 
     /* LIGHTBOX LOGIC END
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
